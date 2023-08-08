@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace Unit\Scalo\Task;
 
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Scalo\Task\DuplicateException;
 use Scalo\Task\Game;
@@ -43,10 +42,19 @@ final class ScoreBoardTest extends TestCase
     public function testStartGame(): void
     {
         // Given I have my Football World Cup Live `ScoreBoard`
+        $team1 = new Team(uniqid());
+        $team2 = new Team(uniqid());
+        $game1 = new Game('match-1', $team1, $team2);
+        $sut = new ScoreBoard(uniqid(), $game1);
+
+        // Then no `Games` should be on summary
+        $this->assertEmpty($sut->getSummary());
 
         // When I start a concrete `Game`
+        $sut->startGame('match-1');
 
-        // Then a `Score` of this `Game` should be listed with 0:0
+        // Then a `Score` of this `Game` should be listed
+        $this->assertCount(1, $sut->getSummary());
     }
 
     public function testChangeScoreOnStartGame(): void

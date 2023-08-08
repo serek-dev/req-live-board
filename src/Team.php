@@ -8,12 +8,19 @@ namespace Scalo\Task;
 
 final class Team
 {
-    public function __construct(private readonly string $id)
+    public function __construct(
+        private readonly string $id
+    )
     {
     }
 
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return 'team1';
     }
 }
