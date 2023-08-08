@@ -1,0 +1,36 @@
+{
+    "name": "scalo/task",
+    "description": "Task for you",
+    "type": "library",
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-phpunit": "^1.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Twaróg",
+            "email": "sebastian.twarog1989@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Scalo\\Task\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Unit\\": "tests/Unit/"
+        }
+    },
+    "scripts": {
+        "phpunit": "./vendor/bin/phpunit --testdox --colors",
+        "tests:unit": "@phpunit -c phpunit.xml --testsuite unit",
+        "phpstan": "php -d memory_limit=400M vendor/bin/phpstan analyse -c phpstan.neon"
+    },
+    "minimum-stability": "stable"
+}

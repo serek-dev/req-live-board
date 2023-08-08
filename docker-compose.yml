@@ -1,0 +1,11 @@
+version: '3.6'
+
+services:
+
+  lib:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: static_analysis
+    volumes:
+      - ./:/app/
