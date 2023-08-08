@@ -5,12 +5,13 @@ namespace Unit\Scalo\Task;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Scalo\Task\Game;
+use Scalo\Task\Score;
 use Scalo\Task\Team;
 
 /** @covers \Scalo\Task\Game */
 final class GameTest extends TestCase
 {
-    public function testConstructor(): void
+    public function testConstructor(): Game
     {
         // Given I have two `Teams`
         $team1 = new Team(uniqid());
@@ -21,6 +22,17 @@ final class GameTest extends TestCase
 
         // Then I should be able to create this object
         $this->assertInstanceOf(Game::class, $sut);
+
+        return $sut;
+    }
+
+    /** @depends testConstructor */
+    public function testInitialScoreIs0To0(Game $sut): void
+    {
+        // Given I have a valid `Game`
+
+        // Then initial `Score` should be 0:0
+        $this->assertEquals(new Score(0, 0), $sut->getScore());
     }
 
     public function testConstructorFailsOnDuplicatedTeams(): void
@@ -33,16 +45,5 @@ final class GameTest extends TestCase
 
         // And when I try to schedule a `Game` for the same team
         new Game(uniqid(), $team1, $team1);
-    }
-
-    public function testStartGame(): void
-    {
-        // Given I have two `Teams`
-
-        // And my scheduled `Game` for these teams
-
-        // When I start the `Game`
-
-        // Then a `Score` should be "0:0"
     }
 }

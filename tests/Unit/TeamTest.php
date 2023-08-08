@@ -11,6 +11,6 @@ final class TeamTest extends TestCase
     public function testConstructorAndGetters(): void
     {
         $sut = new Team('1');
-        $this->assertInstanceOf('1', $sut->getId());
+        $this->assertSame('1', $sut->getId());
     }
 }

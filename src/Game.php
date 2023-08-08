@@ -19,4 +19,9 @@ final class Game
             throw new InvalidArgumentException('Game can not be scheduled for the same team.');
         }
     }
+
+    public function getScore(): Score
+    {
+        return new Score(0, 0);
+    }
 }
