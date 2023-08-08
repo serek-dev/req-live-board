@@ -24,4 +24,14 @@ final class Game
     {
         return new Score(0, 0);
     }
+
+    public function getHomeTeam(): Team
+    {
+        return $this->homeTeam;
+    }
+
+    public function getAwayTeam(): Team
+    {
+        return $this->awayTeam;
+    }
 }
