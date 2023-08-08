@@ -29,7 +29,7 @@
     },
     "scripts": {
         "phpunit": "./vendor/bin/phpunit --testdox --colors",
-        "tests:unit": "@phpunit -c phpunit.xml --testsuite unit",
+        "tests:unit": "@phpunit -c phpunit.xml",
         "phpstan": "php -d memory_limit=400M vendor/bin/phpstan analyse -c phpstan.neon"
     },
     "minimum-stability": "stable"
