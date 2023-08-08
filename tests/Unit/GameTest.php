@@ -5,6 +5,7 @@ namespace Unit\Scalo\Task;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Scalo\Task\Game;
+use Scalo\Task\GameStatus;
 use Scalo\Task\Score;
 use Scalo\Task\Team;
 
@@ -33,6 +34,22 @@ final class GameTest extends TestCase
 
         // Then initial `Score` should be 0:0
         $this->assertEquals(new Score(0, 0), $sut->getScore());
+    }
+
+    /** @depends testConstructor */
+    public function testInitialStatusIsScheduled(Game $sut): void
+    {
+        $this->assertEquals(GameStatus::SCHEDULED, $sut->getStatus());
+    }
+
+    /** @depends testConstructor */
+    public function testStartGame(Game $sut): void
+    {
+        // When I start `Game`
+        $sut->start();
+
+        // Then status should change
+        $this->assertEquals(GameStatus::STARTED, $sut->getStatus());
     }
 
     public function testConstructorFailsOnDuplicatedTeams(): void
