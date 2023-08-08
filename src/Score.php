@@ -18,4 +18,14 @@ final class Score
             throw new InvalidArgumentException('Score must be equal or greater than 0');
         }
     }
+
+    public function getHomeTeam(): int
+    {
+        return $this->homeTeam;
+    }
+
+    public function getAwayTeam(): int
+    {
+        return $this->awayTeam;
+    }
 }

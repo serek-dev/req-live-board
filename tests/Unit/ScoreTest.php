@@ -9,10 +9,12 @@ use Scalo\Task\Score;
 /** @covers \Scalo\Task\Score */
 final class ScoreTest extends TestCase
 {
-    public function testConstructor(): void
+    public function testConstructorAndGetters(): void
     {
-        $sut = new Score(0, 0);
+        $sut = new Score(0, 1);
         $this->assertInstanceOf(Score::class, $sut);
+        $this->assertSame(0, $sut->getHomeTeam());
+        $this->assertSame(1, $sut->getAwayTeam());
     }
 
     /** @dataProvider providerForConstructorFailsOnNegativeNumbers */
