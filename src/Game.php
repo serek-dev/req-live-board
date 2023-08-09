@@ -7,9 +7,8 @@ namespace Scalo\Task;
 
 
 use InvalidArgumentException;
-use Stringable;
 
-final class Game implements Stringable
+final class Game
 {
     private Score $score;
     private GameStatus $status;
@@ -40,18 +39,6 @@ final class Game implements Stringable
     public function getAwayTeam(): Team
     {
         return $this->awayTeam;
-    }
-
-    // todo: probably better to handle projection in different layer
-    public function __toString(): string
-    {
-        return sprintf(
-            '%s %d - %s %d',
-            $this->homeTeam->getName(),
-            $this->score->getHomeTeam(),
-            $this->awayTeam->getName(),
-            $this->score->getAwayTeam(),
-        );
     }
 
     public function getId(): string

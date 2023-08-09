@@ -32,13 +32,12 @@ final class ScoreBoard
         }
     }
 
+    /** @return Game[] */
     public function getSummary(): array
     {
         $onlyStarted = array_filter($this->scheduledGames, fn(Game $g) => $g->getStatus() === GameStatus::STARTED);
 
-        return array_map(function (Game $game) {
-            return (string)$game;
-        }, $onlyStarted);
+        return array_values($onlyStarted);
     }
 
     public function startGame(string $gameId): void
