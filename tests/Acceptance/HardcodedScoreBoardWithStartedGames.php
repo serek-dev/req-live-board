@@ -43,4 +43,9 @@ final class HardcodedScoreBoardWithStartedGames implements ScoreBoardRepositoryI
     {
         return $this->cache;
     }
+
+    public function store(ScoreBoard $board): void
+    {
+        // out of the scope
+    }
 }

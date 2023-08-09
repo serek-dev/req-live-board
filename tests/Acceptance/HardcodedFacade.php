@@ -7,6 +7,7 @@ namespace Acceptance;
 
 
 use Scalo\Task\FacadeInterface;
+use Scalo\Task\RepositoryBasedPresenter;
 use Scalo\Task\PresenterInterface;
 use Scalo\Task\Score;
 use Scalo\Task\ScoreBoardRepositoryInterface;
@@ -19,7 +20,7 @@ final class HardcodedFacade implements FacadeInterface
     public function __construct()
     {
         $this->repository = new HardcodedScoreBoardWithStartedGames();
-        $this->presenter = new HardcodedPresenter($this->repository);
+        $this->presenter = new RepositoryBasedPresenter($this->repository);
     }
 
     /** @inheritdoc */

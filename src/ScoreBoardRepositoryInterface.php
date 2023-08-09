@@ -9,4 +9,6 @@ interface ScoreBoardRepositoryInterface
 {
     /** @throws NotFoundException */
     public function getOne(/* string $id or $date */): ScoreBoard;
+
+    public function store(ScoreBoard $board): void;
 }

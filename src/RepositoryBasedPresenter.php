@@ -3,14 +3,10 @@
 declare(strict_types=1);
 
 
-namespace Acceptance;
+namespace Scalo\Task;
 
 
-use Scalo\Task\GameInterface;
-use Scalo\Task\PresenterInterface;
-use Scalo\Task\ScoreBoardRepositoryInterface;
-
-final class HardcodedPresenter implements PresenterInterface
+final class RepositoryBasedPresenter implements PresenterInterface
 {
     public function __construct(private readonly ScoreBoardRepositoryInterface $scoreBoardRepository)
     {
@@ -21,7 +17,7 @@ final class HardcodedPresenter implements PresenterInterface
      */
     public function getSummary(): array
     {
-        $games = $this->scoreBoardRepository->getOne()->getSummary();
+        $games = $this->scoreBoardRepository->getOne(/* string $id or $date */)->getSummary();
 
         // Order by sum score
         usort($games, function (GameInterface $a, GameInterface $b) {
