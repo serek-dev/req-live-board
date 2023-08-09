@@ -5,6 +5,7 @@ namespace Unit\Scalo\Task;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Scalo\Task\Game;
+use Scalo\Task\GameInterface;
 use Scalo\Task\GameStatus;
 use Scalo\Task\Score;
 use Scalo\Task\Team;
@@ -12,7 +13,7 @@ use Scalo\Task\Team;
 /** @covers \Scalo\Task\Game */
 final class GameTest extends TestCase
 {
-    public function testConstructor(): Game
+    public function testConstructor(): GameInterface
     {
         // Given I have two `Teams`
         $team1 = new Team(uniqid());
@@ -22,13 +23,13 @@ final class GameTest extends TestCase
         $sut = new Game(uniqid(), $team1, $team2);
 
         // Then I should be able to create this object
-        $this->assertInstanceOf(Game::class, $sut);
+        $this->assertInstanceOf(GameInterface::class, $sut);
 
         return $sut;
     }
 
     /** @depends testConstructor */
-    public function testInitialScoreIs0To0(Game $sut): void
+    public function testInitialScoreIs0To0(GameInterface $sut): void
     {
         // Given I have a valid `Game`
 
@@ -37,13 +38,13 @@ final class GameTest extends TestCase
     }
 
     /** @depends testConstructor */
-    public function testInitialStatusIsScheduled(Game $sut): void
+    public function testInitialStatusIsScheduled(GameInterface $sut): void
     {
         $this->assertEquals(GameStatus::SCHEDULED, $sut->getStatus());
     }
 
     /** @depends testConstructor */
-    public function testStartGame(Game $sut): void
+    public function testStartGame(GameInterface $sut): void
     {
         // When I start `Game`
         $sut->start();

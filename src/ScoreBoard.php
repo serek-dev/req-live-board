@@ -32,10 +32,10 @@ final class ScoreBoard
         }
     }
 
-    /** @return Game[] */
+    /** @return GameInterface[] */
     public function getSummary(): array
     {
-        $onlyStarted = array_filter($this->scheduledGames, fn(Game $g) => $g->getStatus() === GameStatus::STARTED);
+        $onlyStarted = array_filter($this->scheduledGames, fn(GameInterface $g) => $g->getStatus() === GameStatus::STARTED);
 
         return array_values($onlyStarted);
     }
@@ -74,16 +74,16 @@ final class ScoreBoard
     }
 
     /** @throws NotFoundException */
-    private function findGame(string $gameId): Game
+    private function findGame(string $gameId): GameInterface
     {
-        $game = array_filter($this->scheduledGames, fn(Game $g) => $g->getId() === $gameId)[0] ?? null;
+        $game = array_filter($this->scheduledGames, fn(GameInterface $g) => $g->getId() === $gameId)[0] ?? null;
 
         if (empty($game)) {
             throw new NotFoundException(
                 sprintf(
                     'Unable to find gameId: %s, has only: %s',
                     $gameId,
-                    implode(', ', array_map(fn(Game $game) => $game->getId(), $this->scheduledGames)),
+                    implode(', ', array_map(fn(GameInterface $game) => $game->getId(), $this->scheduledGames)),
                 )
             );
         }

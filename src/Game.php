@@ -8,7 +8,7 @@ namespace Scalo\Task;
 
 use InvalidArgumentException;
 
-final class Game
+final class Game implements GameInterface
 {
     private Score $score;
     private GameStatus $status;
