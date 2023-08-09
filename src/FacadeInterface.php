@@ -8,7 +8,7 @@ namespace Scalo\Task;
 interface FacadeInterface
 {
     /**
-     * @return array<string, string>
+     * @return array<int, string>
      */
     public function getSummary(): array;
 

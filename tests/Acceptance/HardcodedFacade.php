@@ -7,23 +7,22 @@ namespace Acceptance;
 
 
 use Scalo\Task\FacadeInterface;
+use Scalo\Task\PresenterInterface;
 use Scalo\Task\Score;
 use Scalo\Task\ScoreBoardRepositoryInterface;
 
 final class HardcodedFacade implements FacadeInterface
 {
-    private HardcodedPresenter $presenter;
+    private readonly PresenterInterface $presenter;
+    private readonly ScoreBoardRepositoryInterface $repository;
 
-    public function __construct(private readonly ?ScoreBoardRepositoryInterface $repository = new HardcodedScoreBoardWithStartedGames())
+    public function __construct()
     {
-        $this->presenter = new HardcodedPresenter(
-            $this->repository
-        );
+        $this->repository = new HardcodedScoreBoardWithStartedGames();
+        $this->presenter = new HardcodedPresenter($this->repository);
     }
 
-    /**
-     * @return array<string, string>
-     */
+    /** @inheritdoc */
     public function getSummary(): array
     {
         return $this->presenter->getSummary();
@@ -33,13 +32,20 @@ final class HardcodedFacade implements FacadeInterface
     {
         $board = $this->repository->getOne();
         $board->updateScore($gameId, new Score($homeTeamScore, $awayTeamScore));
+        // todo: eventually persist in the future
     }
 
     public function start(string $gameId): void
     {
+        $board = $this->repository->getOne();
+        $board->startGame($gameId);
+        // todo: eventually persist in the future
     }
 
     public function finish(string $gameId): void
     {
+        $board = $this->repository->getOne();
+        $board->finish($gameId);
+        // todo: eventually persist in the future
     }
 }

@@ -44,7 +44,7 @@ final class GameTest extends TestCase
     }
 
     /** @depends testConstructor */
-    public function testStartGame(GameInterface $sut): void
+    public function testStartGame(Game $sut): void
     {
         // When I start `Game`
         $sut->start();

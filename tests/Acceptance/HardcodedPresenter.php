@@ -7,16 +7,17 @@ namespace Acceptance;
 
 
 use Scalo\Task\GameInterface;
+use Scalo\Task\PresenterInterface;
 use Scalo\Task\ScoreBoardRepositoryInterface;
 
-final class HardcodedPresenter
+final class HardcodedPresenter implements PresenterInterface
 {
     public function __construct(private readonly ScoreBoardRepositoryInterface $scoreBoardRepository)
     {
     }
 
     /**
-     * @return array<string, string>
+     * @return array<int, string>
      */
     public function getSummary(): array
     {

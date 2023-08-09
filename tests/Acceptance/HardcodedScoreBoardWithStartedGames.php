@@ -13,15 +13,21 @@ use Scalo\Task\Team;
 
 final class HardcodedScoreBoardWithStartedGames implements ScoreBoardRepositoryInterface
 {
+    public const MEX_VS_CAN = '1';
+    public const ESP_VS_BRA = '2';
+    public const GER_VS_FRA = '3';
+    public const URU_VS_ITA = '4';
+    public const ARG_VS_AUT = '5';
+
     private ScoreBoard $cache;
 
     public function __construct()
     {
-        $mexicoVsCanada = new Game('1', new Team('mexico', 'Mexico'), new Team('canada', 'Canada'));
-        $spainVsBrazil = new Game('2', new Team('spain', 'Spain'), new Team('brazil', 'Brazil'));
-        $germanyVsFrance = new Game('3', new Team('germany', 'Germany'), new Team('france', 'France'));
-        $uruguayVsItaly = new Game('4', new Team('uruguay', 'Uruguay'), new Team('italy', 'Italy'));
-        $argentinaVsAustralia = new Game('5', new Team('argentina', 'Argentina'), new Team('australia', 'Australia'));
+        $mexicoVsCanada = new Game(self::MEX_VS_CAN, new Team('mexico', 'Mexico'), new Team('canada', 'Canada'));
+        $spainVsBrazil = new Game(self::ESP_VS_BRA, new Team('spain', 'Spain'), new Team('brazil', 'Brazil'));
+        $germanyVsFrance = new Game(self::GER_VS_FRA, new Team('germany', 'Germany'), new Team('france', 'France'));
+        $uruguayVsItaly = new Game(self::URU_VS_ITA, new Team('uruguay', 'Uruguay'), new Team('italy', 'Italy'));
+        $argentinaVsAustralia = new Game(self::ARG_VS_AUT, new Team('argentina', 'Argentina'), new Team('australia', 'Australia'));
 
         $this->cache = new ScoreBoard(
             '2020-01-01.',
@@ -33,7 +39,7 @@ final class HardcodedScoreBoardWithStartedGames implements ScoreBoardRepositoryI
         );;
     }
 
-    public function getOne(): ScoreBoard
+    public function getOne(/* string $id or $date */): ScoreBoard
     {
         return $this->cache;
     }

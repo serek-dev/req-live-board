@@ -10,6 +10,8 @@ start: _install tests_unit tests_phpstan ### Start local env and tests
 _install:
 	$(docker-compose) run --rm lib install
 
+tests: tests_phpstan tests_unit tests_acceptance ### Runs all tests to prove it works :)
+
 tests_phpstan: ### Runs phpstan analysis
 	$(docker-compose) run --rm lib phpstan
 

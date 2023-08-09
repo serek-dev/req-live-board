@@ -9,6 +9,7 @@ namespace Unit\Scalo\Task;
 use PHPUnit\Framework\TestCase;
 use Scalo\Task\DuplicateException;
 use Scalo\Task\Game;
+use Scalo\Task\NotFoundException;
 use Scalo\Task\RuntimeException;
 use Scalo\Task\Score;
 use Scalo\Task\ScoreBoard;
@@ -95,7 +96,7 @@ final class ScoreBoardTest extends TestCase
         $sut = new ScoreBoard(uniqid(), $game1);
 
         // Then I should see an error
-        $this->expectException(RuntimeException::class);
+        $this->expectException(NotFoundException::class);
 
         // When I change the `Score` of non-started `Game`
         $sut->updateScore('match-1', new Score(1, 1));

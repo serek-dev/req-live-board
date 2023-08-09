@@ -8,5 +8,5 @@ namespace Scalo\Task;
 interface ScoreBoardRepositoryInterface
 {
     /** @throws NotFoundException */
-    public function getOne(): ScoreBoard;
+    public function getOne(/* string $id or $date */): ScoreBoard;
 }

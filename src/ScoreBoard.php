@@ -99,4 +99,9 @@ final class ScoreBoard
 
         return $game;
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
 }
