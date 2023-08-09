@@ -40,36 +40,41 @@ final class ScoreBoard
         return array_values($onlyStarted);
     }
 
+    /**
+     * @throws RuntimeException
+     * @throws NotFoundException
+     */
     public function startGame(string $gameId): void
     {
-        $game = array_filter($this->scheduledGames, fn(Game $g) => $g->getId() === $gameId)[0] ?? null;
-
-        if (empty($game)) {
-            throw new NotFoundException();
-        }
+        $game = $this->findGame($gameId);
 
         $game->start();
     }
 
-    /** @throws RuntimeException */
+    /**
+     * @throws RuntimeException
+     * @throws NotFoundException
+     */
     public function updateScore(string $gameId, Score $score): void
     {
-        $game = array_filter($this->scheduledGames, fn(Game $g) => $g->getId() === $gameId)[0] ?? null;
-
-        if (empty($game)) {
-            throw new NotFoundException(
-                sprintf(
-                    'Unable to find gameId: %s, has only: %s',
-                    $gameId,
-                    implode(', ', array_map(fn(Game $game) => $game->getId(), $this->scheduledGames)),
-                )
-            );
-        }
+        $game = $this->findGame($gameId);
 
         $game->changeScore($score);
     }
 
+    /**
+     * @throws RuntimeException
+     * @throws NotFoundException
+     */
     public function finish(string $gameId): void
+    {
+        $game = $this->findGame($gameId);
+
+        $game->finish();
+    }
+
+    /** @throws NotFoundException */
+    private function findGame(string $gameId): Game
     {
         $game = array_filter($this->scheduledGames, fn(Game $g) => $g->getId() === $gameId)[0] ?? null;
 
@@ -83,6 +88,6 @@ final class ScoreBoard
             );
         }
 
-        $game->finish();
+        return $game;
     }
 }
