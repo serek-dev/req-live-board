@@ -74,6 +74,18 @@ final class ScoreBoardTest extends TestCase
         $this->assertEquals(new Score(1, 1), $game->getScore());
     }
 
+    /** @depends testStartGame */
+    public function testGameShouldNotAppearOnSummaryWhenItIsFinished(ScoreBoard $sut): void
+    {
+        // Given I have already started `Game`
+
+        // When I finish it
+        $sut->finish('match-1');
+
+        // Then it should no longer be on the list
+        $this->assertCount(0, $sut->getSummary());
+    }
+
     public function testFailsWhenAttemptingToChangeScoreOnNonStartedGame(): void
     {
         // Given I have my Football World Cup Live `ScoreBoard`

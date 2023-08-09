@@ -51,6 +51,11 @@ final class Game
         $this->status = GameStatus::STARTED;
     }
 
+    public function finish(): void
+    {
+        $this->status = GameStatus::FINISHED;
+    }
+
     public function getStatus(): GameStatus
     {
         return $this->status;

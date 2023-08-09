@@ -68,4 +68,21 @@ final class ScoreBoard
 
         $game->changeScore($score);
     }
+
+    public function finish(string $gameId): void
+    {
+        $game = array_filter($this->scheduledGames, fn(Game $g) => $g->getId() === $gameId)[0] ?? null;
+
+        if (empty($game)) {
+            throw new NotFoundException(
+                sprintf(
+                    'Unable to find gameId: %s, has only: %s',
+                    $gameId,
+                    implode(', ', array_map(fn(Game $game) => $game->getId(), $this->scheduledGames)),
+                )
+            );
+        }
+
+        $game->finish();
+    }
 }
