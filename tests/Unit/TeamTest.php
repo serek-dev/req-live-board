@@ -10,7 +10,8 @@ final class TeamTest extends TestCase
 {
     public function testConstructorAndGetters(): void
     {
-        $sut = new Team('1');
+        $sut = new Team('1', 'Poland');
         $this->assertSame('1', $sut->getId());
+        $this->assertSame('Poland', $sut->getName());
     }
 }

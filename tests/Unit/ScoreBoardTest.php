@@ -28,9 +28,9 @@ final class ScoreBoardTest extends TestCase
     public function testScoreBoardConstructionFailsOnDuplicatedTeams(): void
     {
         // Given `Teams`
-        $team1 = new Team(uniqid());
-        $team2 = new Team(uniqid());
-        $team3 = new Team(uniqid());
+        $team1 = new Team(uniqid(), 'Poland');
+        $team2 = new Team(uniqid(), 'Poland');
+        $team3 = new Team(uniqid(), 'Poland');
 
         // When any team is scheduled for more than one `Game` within `ScoreBoard` `Day`
         $game1 = new Game(uniqid(), $team1, $team2);
@@ -44,8 +44,8 @@ final class ScoreBoardTest extends TestCase
     public function testStartGame(): ScoreBoard
     {
         // Given I have my Football World Cup Live `ScoreBoard`
-        $team1 = new Team(uniqid());
-        $team2 = new Team(uniqid());
+        $team1 = new Team(uniqid(), 'Poland');
+        $team2 = new Team(uniqid(), 'Poland');
         $game1 = new Game('match-1', $team1, $team2);
         $sut = new ScoreBoard(uniqid(), $game1);
 
@@ -89,8 +89,8 @@ final class ScoreBoardTest extends TestCase
     public function testFailsWhenAttemptingToChangeScoreOnNonStartedGame(): void
     {
         // Given I have my Football World Cup Live `ScoreBoard`
-        $team1 = new Team(uniqid());
-        $team2 = new Team(uniqid());
+        $team1 = new Team(uniqid(), 'Poland');
+        $team2 = new Team(uniqid(), 'Poland');
         $game1 = new Game('match-1', $team1, $team2);
         $sut = new ScoreBoard(uniqid(), $game1);
 

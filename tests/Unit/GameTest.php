@@ -16,8 +16,8 @@ final class GameTest extends TestCase
     public function testConstructor(): GameInterface
     {
         // Given I have two `Teams`
-        $team1 = new Team(uniqid());
-        $team2 = new Team(uniqid());
+        $team1 = new Team(uniqid(), 'Poland');
+        $team2 = new Team(uniqid(), 'Poland');
 
         // And my scheduled `Game` for these teams
         $sut = new Game(uniqid(), $team1, $team2);
@@ -56,7 +56,7 @@ final class GameTest extends TestCase
     public function testConstructorFailsOnDuplicatedTeams(): void
     {
         // Given I have one `Team`
-        $team1 = new Team(uniqid());
+        $team1 = new Team(uniqid(), 'Poland');
 
         // Then I should se an error
         $this->expectException(InvalidArgumentException::class);
