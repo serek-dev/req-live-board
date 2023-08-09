@@ -28,7 +28,7 @@ final class ScoreBoard
                     throw $error;
                 }
             }
-            $this->scheduledGames[$index] = $game;
+            $this->scheduledGames[] = $game;
         }
     }
 
@@ -49,5 +49,23 @@ final class ScoreBoard
         }
 
         $game->start();
+    }
+
+    /** @throws RuntimeException */
+    public function updateScore(string $gameId, Score $score): void
+    {
+        $game = array_filter($this->scheduledGames, fn(Game $g) => $g->getId() === $gameId)[0] ?? null;
+
+        if (empty($game)) {
+            throw new NotFoundException(
+                sprintf(
+                    'Unable to find gameId: %s, has only: %s',
+                    $gameId,
+                    implode(', ', array_map(fn(Game $game) => $game->getId(), $this->scheduledGames)),
+                )
+            );
+        }
+
+        $game->changeScore($score);
     }
 }

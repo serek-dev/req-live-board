@@ -55,4 +55,17 @@ final class Game
     {
         return $this->status;
     }
+
+    /**
+     * @throws RuntimeException
+     */
+    public function changeScore(Score $score): void
+    {
+        if ($this->status !== GameStatus::STARTED) {
+            throw new RuntimeException(
+                'To change the score, Game must be running'
+            );
+        }
+        $this->score = $score;
+    }
 }

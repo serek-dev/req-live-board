@@ -9,6 +9,8 @@ namespace Unit\Scalo\Task;
 use PHPUnit\Framework\TestCase;
 use Scalo\Task\DuplicateException;
 use Scalo\Task\Game;
+use Scalo\Task\RuntimeException;
+use Scalo\Task\Score;
 use Scalo\Task\ScoreBoard;
 use Scalo\Task\Team;
 
@@ -39,7 +41,7 @@ final class ScoreBoardTest extends TestCase
         new ScoreBoard(uniqid(), $game1, $game2);
     }
 
-    public function testStartGame(): void
+    public function testStartGame(): ScoreBoard
     {
         // Given I have my Football World Cup Live `ScoreBoard`
         $team1 = new Team(uniqid());
@@ -55,19 +57,21 @@ final class ScoreBoardTest extends TestCase
 
         // Then a `Score` of this `Game` should be listed
         $this->assertCount(1, $sut->getSummary());
+
+        return $sut;
     }
 
-    public function testChangeScoreOnStartGame(): void
+    /** @depends testStartGame */
+    public function testChangeScoreOnStartedGame(ScoreBoard $sut): void
     {
-        // Given I have my Football World Cup Live `ScoreBoard`
+        // Given I have already started `Game`
 
-        // When I start a concrete `Game`
-
-        // And I change the `Score` of concrete `Game`
+        // When I change the `Score`
+        $sut->updateScore('match-1', new Score(1, 1));
 
         // Then a `Score` of this `Game` should contain a new value
-
-        // And the order should change
+        [$game] = $sut->getSummary();
+        $this->assertEquals(new Score(1, 1), $game->getScore());
     }
 
     public function testFailsWhenAttemptingToChangeScoreOnNonStartedGame(): void
