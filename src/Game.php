@@ -46,9 +46,10 @@ final class Game implements GameInterface
         return $this->id;
     }
 
-    public function start(): void
+    public function start(): self
     {
         $this->status = GameStatus::STARTED;
+        return $this;
     }
 
     public function finish(): void
@@ -64,7 +65,7 @@ final class Game implements GameInterface
     /**
      * @throws RuntimeException
      */
-    public function changeScore(Score $score): void
+    public function changeScore(Score $score): self
     {
         if ($this->status !== GameStatus::STARTED) {
             throw new RuntimeException(
@@ -72,5 +73,7 @@ final class Game implements GameInterface
             );
         }
         $this->score = $score;
+
+        return $this;
     }
 }

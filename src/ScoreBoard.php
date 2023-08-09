@@ -80,7 +80,12 @@ final class ScoreBoard
     /** @throws NotFoundException */
     private function findGame(string $gameId, GameStatus $status): Game
     {
-        $game = array_filter($this->scheduledGames, fn(GameInterface $g) => $g->getId() === $gameId)[0] ?? null;
+        foreach ($this->scheduledGames as $scheduledGame) {
+            if ($scheduledGame->getId() === $gameId && $scheduledGame->getStatus() === $status) {
+                $game = $scheduledGame;
+                break;
+            }
+        }
 
         if (empty($game)) {
             throw new NotFoundException(
