@@ -13,4 +13,6 @@ interface GameInterface
     public function getId(): string;
 
     public function getStatus(): GameStatus;
+
+    public function getOrder(): int;
 }

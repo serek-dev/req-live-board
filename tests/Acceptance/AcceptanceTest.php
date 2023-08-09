@@ -10,7 +10,14 @@ use Scalo\Task\FacadeInterface;
  * Background:
  * We have an existing "Football World Cup"
  * And we have scheduled matches for many days
- * Here we are acting in the scope of one day = 2020-01-01 as an example.
+ * Here we are acting in the scope of one day = 2020-01-01 as an example
+ *
+ * And the following `Games` are started:
+ * 'Mexico 0 - Canada 0',
+ * 'Spain 0 - Brazil 0',
+ * 'Germany 0 - France 0',
+ * 'Uruguay 0 - Italy 0',
+ * 'Argentina 0 - Australia 0',
  */
 final class AcceptanceTest extends TestCase
 {
@@ -25,16 +32,16 @@ final class AcceptanceTest extends TestCase
         $facade = new HardcodedFacade();
 
         // I want to see all live results with 0:0 score
-        // And ordered chronically
+        // And ordered from the latest added (Argentina is last entry)
 
         $summary = $facade->getSummary();
 
         $this->assertEquals([
-            'Mexico 0 - Canada 0',
-            'Spain 0 - Brazil 0',
-            'Germany 0 - France 0',
-            'Uruguay 0 - Italy 0',
             'Argentina 0 - Australia 0',
+            'Uruguay 0 - Italy 0',
+            'Germany 0 - France 0',
+            'Spain 0 - Brazil 0',
+            'Mexico 0 - Canada 0',
         ], $summary);
     }
 
@@ -47,11 +54,6 @@ final class AcceptanceTest extends TestCase
 
         /*
          As an example, being the current data in the system:
-            a. Mexico - Canada: 0 – 5
-            b. Spain - Brazil: 10 – 2
-            c. Germany - France: 2 – 2
-            d. Uruguay - Italy: 6 – 6
-            e. Argentina - Australia: 3 - 1
          */
         $facade->changeScore(HardcodedScoreBoardWithStartedGames::MEX_VS_CAN, 0, 5);
         $facade->changeScore(HardcodedScoreBoardWithStartedGames::ESP_VS_BRA, 10, 2);
@@ -62,22 +64,22 @@ final class AcceptanceTest extends TestCase
         // I want to see all live results
         // Ordered by sum of home & away teams `Score`
         // When `Score` is equal
-        // Then it should be ordered by adding order
+        // Then it should be ordered by latest added `Game`
 
         $summary = $facade->getSummary();
 
-        // todo: this output differs from your task
-        // but imo if my understanding is good,
-        // "will be returned ordered by the most recently added to our system."
-        // it means that lastly added elements should have precedence
-        // over previously added in case of same score sum
+        /*
+         The summary would provide with the following information:
+         */
+
+        // URU was added later so has precedence
 
         $this->assertEquals([
-            'Spain 10 - Brazil 2', # 12
             'Uruguay 6 - Italy 6', # 12
+            'Spain 10 - Brazil 2', # 12
             'Mexico 0 - Canada 5', # 5
-            'Germany 2 - France 2', # 4
             'Argentina 3 - Australia 1', # 4
+            'Germany 2 - France 2', # 4
         ], $summary);
     }
 
@@ -104,10 +106,10 @@ final class AcceptanceTest extends TestCase
 
         $this->assertEquals([
             'Spain 0 - Brazil 2',
-            'Mexico 0 - Canada 0',
-            'Germany 0 - France 0',
-            'Uruguay 0 - Italy 0',
             'Argentina 0 - Australia 0',
+            'Uruguay 0 - Italy 0',
+            'Germany 0 - France 0',
+            'Mexico 0 - Canada 0',
         ], $summary);
 
         return $facade;
@@ -123,11 +125,11 @@ final class AcceptanceTest extends TestCase
 
         $summary = $facade->getSummary();
         $this->assertEquals([
-            'Mexico 0 - Canada 2',
             'Spain 0 - Brazil 2',
-            'Germany 0 - France 0',
-            'Uruguay 0 - Italy 0',
+            'Mexico 0 - Canada 2',
             'Argentina 0 - Australia 0',
+            'Uruguay 0 - Italy 0',
+            'Germany 0 - France 0',
         ], $summary);
 
         return $facade;

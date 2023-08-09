@@ -33,6 +33,7 @@ final class ScoreBoard
                 }
             }
             $this->scheduledGames->attach($game);
+            $game->setOrder($this->scheduledGames->count());
         }
     }
 

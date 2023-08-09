@@ -12,6 +12,7 @@ final class Game implements GameInterface
 {
     private Score $score;
     private GameStatus $status;
+    private int $order;
 
     public function __construct(
         private readonly string $id,
@@ -75,5 +76,15 @@ final class Game implements GameInterface
         $this->score = $score;
 
         return $this;
+    }
+
+    public function getOrder(): int
+    {
+        return $this->order;
+    }
+
+    public function setOrder(int $value): void
+    {
+        $this->order = $value;
     }
 }

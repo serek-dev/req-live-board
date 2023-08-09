@@ -24,12 +24,12 @@ final class RepositoryBasedPresenter implements PresenterInterface
             $sumA = $a->getScore()->getHomeTeam() + $a->getScore()->getAwayTeam();
             $sumB = $b->getScore()->getHomeTeam() + $b->getScore()->getAwayTeam();
 
-            if ($sumA == $sumB) {
-                // If sums are equal, compare based on the original index
-                return 0;
+            if ($sumA === $sumB) {
+                // If sums are equal, compare based on the keys (recently added objects)
+                return $b->getOrder() - $a->getOrder();
             }
 
-            return ($sumA < $sumB) ? 1 : -1;
+            return $sumB - $sumA;
         });
 
         return array_values(
