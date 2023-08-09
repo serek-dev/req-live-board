@@ -77,9 +77,15 @@ final class ScoreBoardTest extends TestCase
     public function testFailsWhenAttemptingToChangeScoreOnNonStartedGame(): void
     {
         // Given I have my Football World Cup Live `ScoreBoard`
+        $team1 = new Team(uniqid());
+        $team2 = new Team(uniqid());
+        $game1 = new Game('match-1', $team1, $team2);
+        $sut = new ScoreBoard(uniqid(), $game1);
 
         // Then I should see an error
+        $this->expectException(RuntimeException::class);
 
         // When I change the `Score` of non-started `Game`
+        $sut->updateScore('match-1', new Score(1, 1));
     }
 }
