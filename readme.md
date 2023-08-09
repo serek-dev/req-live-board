@@ -21,6 +21,7 @@ The following `Makefile` commands are available:
 ```text
 bash                           Runs container in bash mode
 start                          Start local env and tests
+tests_acceptance               Runs acceptance test
 tests_phpstan                  Runs phpstan analysis
 tests_unit                     Runs unit tests
 ```

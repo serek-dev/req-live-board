@@ -24,12 +24,14 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Unit\\": "tests/Unit/"
+            "Tests\\Unit\\": "tests/Unit/",
+            "Tests\\Acceptance\\": "tests/Acceptance/"
         }
     },
     "scripts": {
-        "phpunit": "./vendor/bin/phpunit --testdox --colors",
-        "tests:unit": "@phpunit -c phpunit.xml",
+        "phpunit": "./vendor/bin/phpunit --testdox --colors -c phpunit.xml",
+        "tests:unit": "@phpunit --testsuite Unit",
+        "tests:acceptance": "@phpunit  --testsuite Acceptance",
         "phpstan": "php -d memory_limit=400M vendor/bin/phpstan analyse -c phpstan.neon"
     },
     "minimum-stability": "stable"

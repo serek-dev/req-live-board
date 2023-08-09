@@ -16,5 +16,8 @@ tests_phpstan: ### Runs phpstan analysis
 tests_unit: ### Runs unit tests
 	$(docker-compose) run --rm lib tests:unit
 
+tests_acceptance: ### Runs acceptance test
+	$(docker-compose) run --rm lib tests:acceptance
+
 bash: ### Runs container in bash mode
 	$(docker-compose) run --rm lib bash
